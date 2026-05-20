@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, DateTime, String, Column
+from sqlalchemy import Integer, DateTime, String, Column, ForeignKey
 from app.core.database import Base
 from datetime import datetime
 
@@ -13,7 +13,7 @@ class Candidat(Base):
 
     phone = Column(String, nullable=False, index=True)
 
-    cv_path = Column(String, nullable=False)
+    resume_id = Column(Integer, ForeignKey("resumes.id", ondelete="CASCADE"), nullable=False)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     
