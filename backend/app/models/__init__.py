@@ -1,0 +1,8 @@
+from app.models.candidat import Candidat
+from app.models.candidat_skill import CandidatSkills
+from app.models.department import Department
+from app.models.department_skill import DepartmentSkills
+from app.models.experience import Experience
+from app.models.resume import Resume
+from app.models.user import User
+
