@@ -1,6 +1,6 @@
+from datetime import datetime
 from sqlalchemy import String, Column, Integer, DateTime
 from app.core.database import Base
-from datetime import datetime
 
 class Resume(Base):
     __tablename__ = "resumes"
@@ -9,4 +9,4 @@ class Resume(Base):
 
     path = Column(String, nullable=False)
 
-    created_at = Column(DateTime, datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
