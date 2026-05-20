@@ -1,0 +1,19 @@
+from sqlalchemy import Integer, DateTime, String, Column
+from app.core.database import Base
+from datetime import datetime
+
+class Candidat(Base):
+    __tablename__ = "candidats"
+    
+    id = Column(Integer, primary_key=True, index=True)
+
+    fullname = Column(String, nullable=False, index=True)
+
+    email = Column(String, nullable=False, index=True)
+
+    phone = Column(String, nullable=False, index=True)
+
+    cv_path = Column(String, nullable=False)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
