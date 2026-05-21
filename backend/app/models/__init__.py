@@ -5,4 +5,7 @@ from app.models.department_skill import DepartmentSkills
 from app.models.experience import Experience
 from app.models.resume import Resume
 from app.models.user import User
-
+from app.models.education import Education
+from app.models.certification import Certification
+from app.models.language import Language
+from app.models.candidat_language import CandidatLanguages
