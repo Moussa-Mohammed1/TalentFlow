@@ -5,14 +5,14 @@ from pathlib import Path
 import os
 
 #safely load the .env file 
-package_env = Path(__file__).parent / ".env"
+package_env = Path(__file__).resolve().parents[1] / ".env"
 if package_env.exists():
-    load_dotenv(package_env)
+    load_dotenv(package_env, override=True)
 else:
    
     located = find_dotenv()
     if located:
-        load_dotenv(located)
+        load_dotenv(located, override=True)
 
 # safety check for Database Url 
 DATABASE_URL = os.getenv("DATABASE_URL")
