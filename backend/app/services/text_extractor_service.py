@@ -1,5 +1,6 @@
 import os
 import fitz
+import pdfplumber
 from docx import Document
 
 class TextExtractionService:
@@ -19,20 +20,39 @@ class TextExtractionService:
             raise ValueError(f"File type unsupported{file_extension}")
     
     def _extract_from_pdf(self, file_path: str) -> str:
-        text = ""
+        text = self._extract_pdf_pymupdf(file_path)
         
+        if not text or len(text.strip()) < 50:
+            text = self._extract_pdf_pdfplumber(file_path)
+            
+        return self._clean_text(text)
+    
+    def _extract_pdf_pdfplumber(self, file_path:str) -> str: 
+        text = ""
+
+        try:
+            with pdfplumber.open(file_path) as pdf:
+                for page in pdf.pages:
+                    extracted = page.extract_text()
+                    if extracted:
+                        text += extracted + "\n"
+        except Exception as e:
+            raise Exception(f"PDF extraction failed: {str(e)}")
+        return text
+
+    def _extract_pdf_pymupdf(self, file_path: str) -> str:
+        text= ""
         try:
             doc = fitz.open(file_path)
 
             for page in doc:
                 text += page.get_text()
             doc.close()
-
         except Exception as e:
             raise Exception(f"PDF extraction failed: {str(e)}")
+        return text
+        
 
-        return self._clean_text(text)
-    
     def _extract_from_docx(self, file_path:str) -> str:
 
         try:
@@ -41,6 +61,8 @@ class TextExtractionService:
         except Exception as e:
             raise Exception(f"DOCX Extraction failed: {str(e)}")
         return self._clean_text(text)
+    
+
 
     def _get_extension(self, file_path: str) -> str:
         return file_path.split(".")[-1].lower()
