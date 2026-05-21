@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from fastapi import UploadFile
 from pydantic import BaseModel, ConfigDict
 
 
@@ -7,8 +8,8 @@ class ResumeBase(BaseModel):
 	path: str
 
 
-class ResumeCreate(ResumeBase):
-	pass
+class ResumeCreate(BaseModel):
+	file: UploadFile
 
 
 class ResumeRead(ResumeBase):
