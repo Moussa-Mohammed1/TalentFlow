@@ -20,4 +20,4 @@ class ResumeRead(ResumeBase):
 
 
 class ResumeTextRead(BaseModel):
-	raw_text: str
+	raw_text: str | list
